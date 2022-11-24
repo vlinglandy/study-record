@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>hello</title>
+    
+</head>
+<body>
+    <div id="root"></div>
+
+    <script type="text/javascript" src="./sdk/react.js"></script>
+    <script type="text/javascript" src="./sdk/react-dom.js"></script>
+    <script type="text/javascript" src="./sdk/babel.js"></script>
+
+    <script type="text/babel">
+        class Comp extends React.Component{
+            constructor(){
+                super()
+                console.log("constructor");
+            }
+            state = {
+                count: 0 
+            }
+            // 挂载前
+            componentWillMount(){
+                console.log("componentWillMount");
+            }
+            add() {
+                let count = this.state.count + 1
+                this.setState({
+                    count
+                })
+            }
+            // 有可能更新，决定组件是否会因为状态改变而更新
+            shouldComponentUpdate(){
+                console.log("shouldComponentUpdate");
+                // 强制更新
+                this.forceUpdate()
+                return false
+            }
+            // 将要更新
+            componentWillUpdate(){
+                console.log("componentWillUpdate");
+            }
+            // 更新完毕
+            componentDidUpdate(){
+                console.log("componentDidUpdate");
+            }
+            render(){
+                console.log("render");
+                return (
+                    <div>
+                        <div>{ this.state.count }</div>    
+                        <button onClick={() => this.add()}>增加</button>
+                    </div>
+                )
+            }
+            // 挂载完毕
+            componentDidMount(){
+                console.log("componentDidMount");
+            }
+            componentWillUnmount(){
+                console.log("componentWillUnmount");
+            }
+        }
+
+        ReactDOM.render(<Comp/>, document.getElementById("root"))
+    </script>
+</body>
+</html>

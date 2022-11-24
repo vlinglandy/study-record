@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>新版声明周期</title>
+    
+</head>
+<body>
+    <div id="root"></div>
+
+    <script type="text/javascript" src="./18sdk/react.js"></script>
+    <script type="text/javascript" src="./18sdk/react-dom.js"></script>
+    <script type="text/javascript" src="./sdk/babel.js"></script>
+
+    <script type="text/babel">
+        class Comp extends React.Component{
+            constructor(props){
+                super(props)
+                console.log("constructor");
+                this.state = {str: "新版react"}
+            }
+            // 获取派生状态
+            static getDerivedStateFromProps(){
+                console.log("getDerivedStateFromProps");
+                return {}
+            }
+            // 组件更新阀门
+            shouldComponentUpdate(){
+                console.log("shouldComponentUpdate");
+                return true
+            }
+
+            change(){
+                this.setState({
+                    str: Math.random() + ""
+                })
+            }
+
+            render() {
+                console.log("render");
+                return (
+                    <div>
+                        <h1>{ this.state.str }</h1>
+                        <button onClick = {() => this.change()}>修改文字</button>    
+                    </div>
+                )
+            }
+            // render之后, 操作 dom 和 refs 之前调用
+            getSnapshotBeforeUpdate(preProps, preState){
+                console.log("getSnapshotBeforeUpdate");
+                console.log(preProps, preState);
+                return "阿巴阿巴"
+            }
+            // 挂载完毕
+            componentDidMount(){
+                console.log("conponentDidMount");
+            }
+            // 更新完毕
+            componentDidUpdate(preProps, preState, shotValue){
+                console.log("componentDidUpdate");
+                console.log(preProps, preState, shotValue);
+            }
+            // 卸载完毕
+            componentWillUnmount(){
+                console.log("componentDidUnmount");
+            }
+        }
+
+        ReactDOM.render(<Comp text="xxx"/>, document.getElementById("root"))
+    </script>
+</body>
+</html>

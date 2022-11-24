@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>hello</title>
+    
+</head>
+<body>
+    <div id="root"></div>
+
+    <script type="text/javascript" src="./sdk/react.js"></script>
+    <script type="text/javascript" src="./sdk/react-dom.js"></script>
+    <script type="text/javascript" src="./sdk/babel.js"></script>
+
+    <script type="text/babel">
+        let that
+        class Fn extends React.Component{
+            constructor(props){
+                super()
+            }
+            render(){
+                return <div onClick = {this.props.onClick}>阿巴阿巴</div>
+            }
+        }
+
+        class Comp extends React.Component{
+            constructor(props){
+                super(props)
+                this.state = {isHot: false}
+                this.aaa = false
+                console.log(this);
+                that = this
+            }
+            change = () => {
+                console.log(this);
+                this.setState(
+                    {isHot: !this.state.isHot}
+                )
+            }
+            render() {
+                return (
+                    <div>
+                        <h1 onClick = {this.change}>{this.state.isHot ? '热' : '冷'}</h1>
+                        <Fn onClick = {this.change.bind(this)}/>    
+                    </div>
+                )
+            }
+        }
+        ReactDOM.render(<Comp/>, document.getElementById("root"))
+    </script>
+</body>
+</html>

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>hello</title>
+    
+</head>
+<body>
+    <div id="root"></div>
+
+    <script type="text/javascript" src="./sdk/react.js"></script>
+    <script type="text/javascript" src="./sdk/react-dom.js"></script>
+    <script type="text/javascript" src="./sdk/babel.js"></script>
+
+    <script type="text/babel">
+        class Comp extends React.Component{
+            state = {
+                opacity:1
+            }
+
+            a = {
+                opacity:1
+            }
+
+            down(){
+                let opacity = this.state.opacity - 0.1
+                this.setState({
+                    opacity
+                })
+            }
+
+            interval(){
+                setInterval(this.down.bind(this),1000)
+            }
+
+            render(){
+                let { opacity } = this.state
+                return (
+                    <div>
+                        <h1 style = {{ opacity }}>文字</h1>  
+                        <button onClick = {this.interval.bind(this)}>减少</button>
+                    </div>
+                )
+            }
+        }
+        ReactDOM.render(<Comp/>, document.getElementById("root"))
+    </script>
+</body>
+</html>
