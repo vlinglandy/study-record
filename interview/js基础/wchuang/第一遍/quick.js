@@ -1,10 +1,10 @@
-function swap(arr: any,l: any,r: any){
+function swap(arr, l, r){
     let temp = arr[l]
     arr[l] = arr[r]
     arr[r] = temp
 }
 
-function quickSort(arr: any,l: any,r: any){
+function quickSort(arr, l, r){
     if(l < r){
         let seed = l + Math.floor(Math.random() * (r - l + 1))
         swap(arr, r, seed)
